@@ -53,13 +53,13 @@ public class Obstacles {
 		}
 	}
 	
-	public Coordinates getNearestSpawningObstacle(){
-		Coordinates temp ;
-		if(direction){
-			for(Coordinates coord : centers){
-				
-			}
-		}
-		
-	}
+//	public Coordinates getNearestSpawningObstacle(){
+//		Coordinates temp ;
+//		if(direction){
+//			for(Coordinates coord : centers){
+//				
+//			}
+//		}
+//		
+//	}
 }

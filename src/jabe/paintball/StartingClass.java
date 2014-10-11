@@ -57,7 +57,7 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 			ball.update();
 			repaint();
 			try {
-				Thread.sleep(17);
+				Thread.sleep(170);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -134,33 +134,24 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 		
 	}
 	
-	@Override
-	public void update(Graphics g) {
-		if(image == null){
-			image = createImage(this.getWidth(), this.getHeight());
-			second = image.getGraphics();
+	public Image doublebuffer() {
+		if(this.image == null){
+			this.image = createImage(this.getWidth(), this.getHeight());
 		}
+		second = image.getGraphics();
 		
 		second.setColor(getBackground());
 		second.fillRect(0, 0, getWidth(), getHeight());
 		second.setColor(getForeground());
-		
-		paint(second);
-		
-		g.drawImage(image, 0, 0, this);
-	}
-	@Override
-	public void paint(Graphics graph) {
-		Graphics2D g = (Graphics2D) graph;
-		g.drawLine(0, ball.centerY, this.getWidth(), ball.centerY);
-		g.drawLine(ball.centerX, 0, ball.centerX, this.getHeight());
+		second.drawLine(0, ball.centerY, this.getWidth(), ball.centerY);
+		second.drawLine(ball.centerX, 0, ball.centerX, this.getHeight());
 		if(ball.isInAir()){
-			g.fillOval(ball.centerX - (int)(0.5*ball.radius), ball.centerY - (int)(1.5*ball.radius), (int) (1*ball.radius), (int)(3*ball.radius));
+			second.fillOval(ball.centerX - (int)(0.5*ball.radius), ball.centerY - (int)(1.5*ball.radius), (int) (1*ball.radius), (int)(3*ball.radius));
 		}else{
 			if(ball.isOnEarth()){
-				g.fillOval(ball.centerX - (int)(1.5*ball.radius), ball.centerY , (int) 3*ball.radius, (int)(1*ball.radius));
+				second.fillOval(ball.centerX - (int)(1.5*ball.radius), ball.centerY , (int) 3*ball.radius, (int)(1*ball.radius));
 			} else {
-				g.fillOval(ball.centerX - ball.radius, ball.centerY - ball.radius, 2*ball.radius,2*ball.radius);
+				second.fillOval(ball.centerX - ball.radius, ball.centerY - ball.radius, 2*ball.radius,2*ball.radius);
 				//TODO: Move Rotation
 				if(ball.isMoveRight()){
 					
@@ -168,6 +159,15 @@ public class StartingClass extends Applet implements Runnable, KeyListener {
 				}
 			}
 		}
+		return image;
+	}
+	
+	@Override
+	public void paint(Graphics graph) {
+		Graphics2D g = (Graphics2D) graph;
+		g.drawImage(this.doublebuffer(), 0, 0, this);
+		
+		// TODO g.drawImage(this.doublebuffer(), 0, 0, this);
 		
 		//Graphics2D g2 = (Graphics2D) g;
 		//g2.fill(new Ellipse2D.Double());
