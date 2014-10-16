@@ -3,6 +3,7 @@ package jabe.paintball.test;
 import static org.junit.Assert.*;
 
 import jabe.paintball.helper.Coordinates;
+import jabe.paintball.obstacles.Obstacles;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -49,6 +50,18 @@ public class ObstacleTest {
 		assertEquals(4, coords.get(2).x);
 		assertEquals(3, coords.get(3).x);
 		assertEquals(5, coords.get(4).x);
+	}
+	
+	@Test
+	public void testObstacles(){
+		System.out.println("testObstacles: start");
+		Obstacles obst = new Obstacles(5, 4, 5, 4, true, 10,200);
+		
+		for (int i = 0; i < 200; i++) {
+			obst.update(200, 200, 0);
+			System.out.println(obst.centers.size());
+		}
+		System.out.println("testObstacles: stop");
 	}
 
 }
